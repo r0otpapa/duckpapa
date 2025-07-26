@@ -1,2 +1,2 @@
 # ducky
-RPI Zero w Custem rubber duckey
+RPI Zero w Custam rubber duckey
