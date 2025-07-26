@@ -1,0 +1,15 @@
+GUI R
+DELAY 500
+STRING notepad
+ENTER
+DELAY 500
+STRING Hello, this is a test from the Raspberry Pi Duckey Script!
+ENTER
+STRING PAPA(⁠^⁠^⁠)(⁠+⁠_⁠+⁠)*⁠\⁠0⁠/⁠*
+ENTER
+DELAY 500
+GUI S
+STRING cmd
+ENTER
+DELAY 500
+STRING Hppy

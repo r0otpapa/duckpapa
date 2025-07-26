@@ -1,0 +1,4 @@
+STRING Hello from HID script!
+ENTER
+STRING Visit: https://google.com
+ENTER

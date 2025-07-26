@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Ducky script on boot
+After=network.target
+
+[Service]
+ExecStart=/home/kali/ducky/plug_duck.sh
+WorkingDirectory=/home/kali/ducky
+Restart=on-failure
+User=kali
+
+[Install]
+WantedBy=multi-user.target

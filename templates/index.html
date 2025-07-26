@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji" rel="stylesheet">
+  <title>Ducky Wireless Keyboard</title>
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: monospace;
+      padding: 10px;
+      margin: 0;
+    }
+    h2, h3 {
+      text-align: center;
+      color: #0f0;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      background: #000;
+      color: #0f0;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    select, input[type=text], button {
+      font-size: 14px;
+      padding: 8px;
+      margin: 4px;
+      border: none;
+      border-radius: 4px;
+      background: #222;
+      color: #fff;
+    }
+    button:hover {
+      background: #444;
+    }
+    .row, .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .keyboard {
+      display: grid;
+      gap: 5px;
+    }
+    .keyboard .row {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .keyboard button {
+      width: 50px;
+      height: 40px;
+      margin: 2px;
+      font-size: 14px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #777;
+    }
+    .keyboard-toggle {
+      text-align: center;
+      margin: 10px auto;
+    }
+    .keyboard.hidden {
+      display: none;
+    }
+    .guide-toggle {
+      text-align: center;
+      margin: 10px auto;
+    }
+    .guide.hidden {
+      display: none;
+    }
+    @media (max-width: 600px) {
+       .keyboard button {
+          width: 25px;
+          height: 35px;
+          font-size: 12px;
+      }
+      button, select, input[type=text] {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2>🤖 Raspberry Pi Ducky WebUI</h2>
+<p style="text-align: center;">Created by Tarun Sharma</p>
+
+<div class="header-controls">
+  <select id="filename">
+    {% for file in files %}<option value="{{ file }}">{{ file }}</option>{% endfor %}
+  </select>
+  <button onclick="loadScript()">📂 Load</button>
+  <button onclick="saveScript()">🗃 Save</button>
+  <button onclick="runScript()">🚀 Run</button>
+  <button onclick="createNew()">🌟 New</button>
+  <button onclick="renameScript()">🖊 Rename</button>
+  <button onclick="deleteScript()">🚮 Delete</button>
+  <button id="plugBtn" onclick="plugAndPlay()">? Plug & Play</button>
+
+</div>
+
+<textarea id="scriptContent" placeholder="🖊 Edit script here..."></textarea>
+
+<h3>🎯 Quick Inject</h3>
+<div class="row">
+  <input type="text" id="quick" placeholder="e.g. CTRL ALT DEL">
+  <button onclick="inject()">Inject Now</button>
+</div>
+<label>
+  <input type="checkbox" id="modeToggle" /> 🚀 Live Inject Mode
+</label>
+
+<div class="guide-toggle">
+  <button onclick="toggleGuide()">📖 Show/Hide guide</button>
+</div>
+<div class="guide hidden" id="guide">
+  <div style="background:#222; padding:15px; border-radius:6px; color:#ccc; font-size:14px; margin-top:10px;">
+    <ul>
+      <li><strong>STRING</strong> 🔢 Type full text <br><code>STRING Hello Tarun</code></li>
+      <li><strong>ENTER</strong> 👉 Press Enter key</li>
+      <li><strong>TAB</strong> 👉 Press Tab key</li>
+      <li><strong>CTRL ALT DEL</strong> 👉 Combination keys</li>
+      <li><strong>GUI r</strong> 👉 Open Run dialog (Win+R)</li>
+      <li><strong>BACKSPACE</strong>, <strong>ESCAPE</strong>, <strong>DELETE</strong> 👉 Special keys</li>
+      <li><strong>DELAY 1000</strong> 👉 Wait 1000ms (1 sec)</li>
+      <li><strong>REM This is a comment</strong> 👉 Add comment (ignored)</li>
+    </ul>
+    <p>📅 You can also use the virtual keyboard to insert keys live or into the script editor.</p>
+  </div>
+</div>
+
+<h3>💻 Virtual Keyboard</h3>
+<div class="keyboard-toggle">
+  <button onclick="toggleKeyboard()">⌨️ Show/Hide Keyboard</button>
+</div>
+
+<div class="keyboard hidden" id="keyboard">
+  <div class="row">
+    <button onclick="sendKey('1')">1</button>
+    <button onclick="sendKey('2')">2</button>
+    <button onclick="sendKey('3')">3</button>
+    <button onclick="sendKey('4')">4</button>
+    <button onclick="sendKey('5')">5</button>
+    <button onclick="sendKey('6')">6</button>
+    <button onclick="sendKey('7')">7</button>
+    <button onclick="sendKey('8')">8</button>
+    <button onclick="sendKey('9')">9</button>
+    <button onclick="sendKey('0')">0</button>
+  </div>
+  <div class="row">
+    <button onclick="sendKey('Q')">Q</button><button onclick="sendKey('W')">W</button><button onclick="sendKey('E')">E</button><button onclick="sendKey('R')">R</button>
+    <button onclick="sendKey('T')">T</button><button onclick="sendKey('Y')">Y</button><button onclick="sendKey('U')">U</button><button onclick="sendKey('I')">I</button>
+    <button onclick="sendKey('O')">O</button><button onclick="sendKey('P')">P</button>
+  </div>
+  <div class="row">
+    <button onclick="sendKey('A')">A</button><button onclick="sendKey('S')">S</button><button onclick="sendKey('D')">D</button><button onclick="sendKey('F')">F</button>
+    <button onclick="sendKey('G')">G</button><button onclick="sendKey('H')">H</button><button onclick="sendKey('J')">J</button><button onclick="sendKey('K')">K</button>
+    <button onclick="sendKey('L')">L</button>
+  </div>
+  <div class="row">
+    <button onclick="sendKey('Z')">Z</button><button onclick="sendKey('X')">X</button><button onclick="sendKey('C')">C</button><button onclick="sendKey('V')">V</button>
+    <button onclick="sendKey('B')">B</button><button onclick="sendKey('N')">N</button><button onclick="sendKey('M')">M</button>
+  </div>
+  <div class="row">
+    <button onclick="sendKey(' ')">Space</button>
+    <button onclick="sendKey('\n')">⏎</button>
+    <button onclick="sendKey('DELETE')">Del</button>
+    <button onclick="sendKey('TAB')">Tab</button>
+    <button onclick="sendKey('CTRL')">Ctrl</button>
+    <button onclick="sendKey('ALT')">Alt</button>
+    <button onclick="sendKey('GUI S')">Win</button>
+    <button onclick="sendKey('ESCAPE')">Esc</button>
+  </div>
+</div>
+
+<div class="footer">
+  Created by Tarun Sharma | &copy; 2025
+</div>
+
+<script>
+  function sendKey(key) {
+    const inject = document.getElementById("modeToggle").checked;
+    const textarea = document.getElementById("scriptContent");
+    if (inject) {
+      fetch('/inject', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'key=' + encodeURIComponent(key)
+      }).then(r => r.text()).then(alert);
+    } else {
+      textarea.value += (key === 'ENTER' || key === '\n') ? "\n" : (key === 'DELETE') ? '' : key;
+    }
+  }
+
+  function toggleKeyboard() {
+    const kb = document.getElementById("keyboard");
+    const btn = event.target;
+    kb.classList.toggle("hidden");
+    btn.textContent = kb.classList.contains("hidden") ? "⌨️ Show Keyboard" : "⌨️ Hide Keyboard";
+  }
+
+  function toggleGuide() {
+    const kb = document.getElementById("guide");
+    const btn = event.target;
+    kb.classList.toggle("hidden");
+    btn.textContent = kb.classList.contains("hidden") ? "📖 Show Guide" : "📖 Hide Guide";
+  }
+
+  function loadScript() {
+    const filename = document.getElementById("filename").value;
+    fetch("/load", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "filename=" + encodeURIComponent(filename)
+    })
+    .then(res => res.text())
+    .then(data => { document.getElementById("scriptContent").value = data; });
+  }
+
+  function saveScript() {
+    const filename = document.getElementById("filename").value;
+    const content = document.getElementById("scriptContent").value;
+    fetch("/save", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "filename=" + encodeURIComponent(filename) + "&content=" + encodeURIComponent(content)
+    }).then(res => res.text()).then(alert);
+  }
+
+  function runScript() {
+    const filename = document.getElementById("filename").value;
+    fetch("/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "filename=" + encodeURIComponent(filename)
+    }).then(res => res.text()).then(alert);
+  }
+
+  function createNew() {
+    const filename = prompt("Enter new filename:");
+    if (!filename) return;
+    fetch("/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "filename=" + encodeURIComponent(filename)
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      const select = document.getElementById("filename");
+      select.innerHTML = "";
+      data.files.forEach(f => {
+        const opt = document.createElement("option");
+        opt.value = f;
+        opt.text = f;
+        select.appendChild(opt);
+      });
+      select.value = filename;
+      document.getElementById("scriptContent").value = "";
+    });
+  }
+
+  function renameScript() {
+    const oldName = document.getElementById("filename").value;
+    const newName = prompt("Enter new name for the file:", oldName);
+    if (!newName || newName === oldName) return;
+    fetch("/rename", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `oldname=${encodeURIComponent(oldName)}&newname=${encodeURIComponent(newName)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      const select = document.getElementById("filename");
+      select.innerHTML = "";
+      data.files.forEach(f => {
+        const opt = document.createElement("option");
+        opt.value = f;
+        opt.text = f;
+        select.appendChild(opt);
+      });
+      select.value = newName;
+    });
+  }
+
+  function deleteScript() {
+    const filename = document.getElementById("filename").value;
+    if (!confirm(`Delete ${filename}?`)) return;
+    fetch("/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "filename=" + encodeURIComponent(filename)
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      const select = document.getElementById("filename");
+      select.innerHTML = "";
+      data.files.forEach(f => {
+        const opt = document.createElement("option");
+        opt.value = f;
+        opt.text = f;
+        select.appendChild(opt);
+      });
+      document.getElementById("scriptContent").value = "";
+    });
+  }
+
+function plugAndPlay() {
+  const filename = document.getElementById("filename").value;
+  if (!filename) return alert("Please select a script.");
+
+  fetch("/plug", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "filename=" + encodeURIComponent(filename)
+  })
+  .then(res => res.json())
+  .then(data => {
+    const btn = document.getElementById("plugBtn");
+    if (data.enabled) {
+      btn.textContent = "?? Plugged In (ON)";
+      btn.style.background = "#0f0";
+    } else {
+      btn.textContent = "? Plug & Play (OFF)";
+      btn.style.background = "#444";
+    }
+    alert(data.message);
+  });
+}
+
+
+  function inject() {
+    const line = document.getElementById('quick').value;
+    if (!line.trim()) return alert("Please enter a command to inject.");
+    fetch('/inject', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: 'key=' + encodeURIComponent('STRING ' + line)
+    }).then(r => r.text()).then(alert);
+  }
+</script>
+
+</body>
+</html>
