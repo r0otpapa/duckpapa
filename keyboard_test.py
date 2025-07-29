@@ -26,4 +26,4 @@ def type_string(string):
             write_key(bytes([0x00, 0x00, keycode, 0x00, 0x00, 0x00, 0x00, 0x00]))
             time.sleep(0.1)
 
-type_string("hello from pi\n")
+type_string("hello from pi \n r0otpapa")
