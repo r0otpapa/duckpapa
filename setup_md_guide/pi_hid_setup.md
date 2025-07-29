@@ -134,6 +134,15 @@ sudo systemctl start hidgadget.service
 Reboot and check:
 
 ```bash
+chmod +x setup_deckey_gadget.sh
+sudo ./setup_deckey_gadget.sh
+ls /dev/hidg0
+```
+
+
+
+
+```bash
 sudo reboot
 ls /dev/hidg0
 ```
