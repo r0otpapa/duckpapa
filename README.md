@@ -38,6 +38,26 @@ sudo python3 webui.py
 Access on:
 📡 http://localhost:8080 or your Pi’s IP
 
+Issue
+
+ * Serving Flask app 'webui'
+ * Debug mode: off
+Address already in use
+Port 8080 is in use by another program. Either identify and stop that program, or start the server with a different port.
+
+```bash
+sudo lsof -i :8080
+```
+
+COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+python3 1289 root    3u  IPv4  24703      0t0  TCP *:http-alt (LISTEN)
+python3 1289 root    5u  IPv4  24703      0t0  TCP *:http-alt (LISTEN)
+
+``` bash
+sudo kill -9 PID
+```
+exp :- sudo kill -9 1289
+
 ## Optional
 Ngrok Setup
 ``` bash
