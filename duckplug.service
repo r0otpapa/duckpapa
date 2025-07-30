@@ -3,8 +3,8 @@ Description=Run Ducky script on boot
 After=network.target
 
 [Service]
-ExecStart=/home/kali/ducky/plug_duck.sh
-WorkingDirectory=/home/kali/ducky
+ExecStart=/home/usr/duckpapa/plug_duck.sh
+WorkingDirectory=/home/usr/ducky
 Restart=on-failure
 User=kali
 
