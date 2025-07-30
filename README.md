@@ -51,7 +51,7 @@ ngrok config add-authtoken <YOUR_AUTH_TOKEN>
 ```bash
 ngrok http 8080
 ```
-try This
+Test a Payload
 ``` bash
 sudo python3 duckpapa.py /payloads/notepad.txt
 ```
