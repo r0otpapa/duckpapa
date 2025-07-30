@@ -6,7 +6,7 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'payloads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route('/')k
+@app.route('/')
 def index():
     files = os.listdir(UPLOAD_FOLDER)
     return render_template('index.html', files=files)
@@ -107,8 +107,8 @@ def plug():
     import subprocess
     filename = request.form["filename"]
     script_path = os.path.abspath(f"payloads/{filename}")
-    selected_file = "/home/usr/ducky/payloads/selected.txt"
-    plug_script = "/home/usr/ducky/plug_duck.sh"
+    selected_file = "/home/usr/duckpapa/payloads/selected.txt"
+    plug_script = "/home/usr/duckpapa/plug_duck.sh"
     service_name = "duckplug.service"
 
     # Ensure selected.txt is updated
@@ -117,7 +117,7 @@ def plug():
 
     # Update plug_duck.sh
     with open(plug_script, "w") as f:
-        f.write(f"#!/bin/bash\nsleep 5\npython3 /home/usr/ducky/duckpapa.py \"$(cat {selected_file})\"\n")
+        f.write(f"#!/bin/bash\nsleep 5\npython3 /home/usr/duckpapa/duckpapa.py \"$(cat {selected_file})\"\n")
     os.chmod(plug_script, 0o755)
 
     # Toggle systemd service
