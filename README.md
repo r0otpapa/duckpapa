@@ -31,7 +31,7 @@ sudo python3 test.py
 
 ``` bash
 sudo apt install python3-Flask
-chmod +x duckey.py
+chmod +x duckpapa.py
 sudo python3 webui.py
 
 ```
