@@ -13,7 +13,7 @@ Turn your **Raspberry Pi Zero W** into a powerful USB Rubber Ducky-style keyboar
 ---
 
 ```bash
-sudo bash setup_deckey_gadget.sh
+sudo bash setup_hid.sh
 sudo python3 test.py
 ```
 ---
