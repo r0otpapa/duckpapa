@@ -35,6 +35,9 @@ chmod +x duckpapa.py
 sudo python3 webui.py
 
 ```
+Access on:
+📡 http://localhost:8080 or your Pi’s IP
+
 ## Optional
 Ngrok Setup
 ``` bash
