@@ -9,6 +9,7 @@ def write_key(report):
 
 def type_string(string):
     char_map = {
+        '0': 0x27,
         'a': 0x04, 'b': 0x05, 'c': 0x06, 'd': 0x07,
         'e': 0x08, 'f': 0x09, 'g': 0x0A, 'h': 0x0B,
         'i': 0x0C, 'j': 0x0D, 'k': 0x0E, 'l': 0x0F,
