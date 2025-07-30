@@ -23,8 +23,8 @@ chmod +x duckey.py
 sudo python3 webui.py
 
 ```
-# Optional
-## Ngrok Setup
+## Optional
+Ngrok Setup
 ``` bash
 wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-arm.zip
 unzip ngrok-stable-linux-arm.zip
