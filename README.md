@@ -7,6 +7,7 @@ This project turns your Raspberry Pi Zero/Zero W/4 into a USB HID keyboard (like
 - USB HID gadget setup via `/dev/hidg0`
 
 ```bash
+sudo bash setup_deckey_gadget.sh
 sudo python3 test.py
 ```
 
