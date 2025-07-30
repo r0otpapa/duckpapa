@@ -1,4 +1,4 @@
-# 🦆 suckpapa: Raspberry Pi HID Keyboard Gadget
+# 🦆 duckpapa: Raspberry Pi HID Keyboard Gadget
 
 Turn your **Raspberry Pi Zero W** into a powerful USB Rubber Ducky-style keyboard injector.  
 `duckpapa` allows you to send automated keystrokes to a target system — all from a web interface!
