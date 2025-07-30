@@ -7,7 +7,7 @@ This guide explains how to automatically run a Ducky script at boot using a `.sh
 ## 📁 Folder Structure
 
 ```
-/home/usar/duckpapa/
+/home/usr/duckpapa/
 ├── duckpapa.py
 ├── plug_duck.sh
 ├── payloads/
@@ -21,7 +21,7 @@ This guide explains how to automatically run a Ducky script at boot using a `.sh
 **Create the shell script:**
 
 ```bash
-sudo nano /home/usar/duckpapa/plug_duck.sh
+sudo nano /home/usr/duckpapa/plug_duck.sh
 ```
 
 **Paste this:**
@@ -29,13 +29,13 @@ sudo nano /home/usar/duckpapa/plug_duck.sh
 ```bash
 #!/bin/bash
 sleep 5
-python3 /home/usar/duckpapa/duckpapa.py '/home/kali/duckpapa/payloads/notepad.txt'
+python3 /home/usr/duckpapa/duckpapa.py '/home/kali/duckpapa/payloads/notepad.txt'
 ```
 
 **Make it executable:**
 
 ```bash
-chmod +x /home/usar/duckpapa/plug_duck.sh
+chmod +x /home/usr/duckpapa/plug_duck.sh
 ```
 
 ---
@@ -54,8 +54,8 @@ Description=Plug & Play Ducky Script on Boot
 After=multi-user.target
 
 [Service]
-ExecStart=/home/usar/duckpapa/plug_duck.sh
-WorkingDirectory=/home/usar/duckpapa
+ExecStart=/home/usr/duckpapa/plug_duck.sh
+WorkingDirectory=/home/usr/duckpapa
 StandardOutput=journal
 StandardError=journal
 Restart=on-failure
