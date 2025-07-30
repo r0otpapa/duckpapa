@@ -1,4 +1,4 @@
-# 🐥 Raspberry Pi Ducky Plug & Play - Auto Boot Setup Guide
+# 🐥 Raspberry Pi duckpapa Plug & Play - Auto Boot Setup Guide
 
 This guide explains how to automatically run a Ducky script at boot using a `.sh` script and a systemd service on Raspberry Pi or Linux.
 
@@ -7,11 +7,11 @@ This guide explains how to automatically run a Ducky script at boot using a `.sh
 ## 📁 Folder Structure
 
 ```
-/home/kali/ducky/
-├── duckey.py
+/home/usar/duckpapa/
+├── duckpapa.py
 ├── plug_duck.sh
 ├── payloads/
-│   └── notepad2.txt
+│   └── notepad.txt
 ```
 
 ---
@@ -21,7 +21,7 @@ This guide explains how to automatically run a Ducky script at boot using a `.sh
 **Create the shell script:**
 
 ```bash
-sudo nano /home/kali/ducky/plug_duck.sh
+sudo nano /home/usar/duckpapa/plug_duck.sh
 ```
 
 **Paste this:**
@@ -29,13 +29,13 @@ sudo nano /home/kali/ducky/plug_duck.sh
 ```bash
 #!/bin/bash
 sleep 5
-python3 /home/kali/ducky/duckey.py '/home/kali/ducky/payloads/notepad2.txt'
+python3 /home/usar/duckpapa/duckpapa.py '/home/kali/duckpapa/payloads/notepad.txt'
 ```
 
 **Make it executable:**
 
 ```bash
-chmod +x /home/kali/ducky/plug_duck.sh
+chmod +x /home/usar/duckpapa/plug_duck.sh
 ```
 
 ---
@@ -54,8 +54,8 @@ Description=Plug & Play Ducky Script on Boot
 After=multi-user.target
 
 [Service]
-ExecStart=/home/kali/ducky/plug_duck.sh
-WorkingDirectory=/home/kali/ducky
+ExecStart=/home/usar/duckpapa/plug_duck.sh
+WorkingDirectory=/home/usar/duckpapa
 StandardOutput=journal
 StandardError=journal
 Restart=on-failure
