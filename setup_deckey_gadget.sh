@@ -1,5 +1,5 @@
 #!/bin/bash
-# Setup USB HID gadget for Deckey
+# Setup USB HID gadget for Deckpapa
 
 echo "[*] Enabling HID USB gadget..."
 
