@@ -10,6 +10,7 @@ Turn your **Raspberry Pi Zero W** into a powerful USB Rubber Ducky-style keyboar
 - 🔐 USB HID injection via `/dev/hidg0`
 - ⚙️ Simple Bash setup for HID gadget mode
 - 🌍 Optional Ngrok support for remote access
+- Optional pip3 install python-telegram-bot --break-system-packages
 ---
 
 ```bash
